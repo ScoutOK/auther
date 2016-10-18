@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from'react-redux';
 import { Link, browserHistory } from 'react-router';
+import { logoutUser } from '../redux/login';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -61,8 +62,9 @@ class Navbar extends React.Component {
     return (
       <ul className="nav navbar-nav navbar-right">
         <li>
-        <button className="navbar-btn btn btn-default" 
-          onClick={this.props.logout}>logout</button>
+        <button className="navbar-btn btn btn-default"
+          onClick={this.props.logout}
+          disabled={this.props.currentUser.id ? false : true}>logout</button>
         </li>
       </ul>
     );
@@ -71,12 +73,14 @@ class Navbar extends React.Component {
 
 /* -----------------    CONTAINER     ------------------ */
 
-const mapProps = null;
+const mapProps = ({currentUser}) => ({
+  currentUser
+});
 
 const mapDispatch = dispatch => ({
   logout: () => {
-    console.log('You signed out. Sorta.')
     browserHistory.push('/');
+    return dispatch(logoutUser());
   }
 })
 

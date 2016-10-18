@@ -68,6 +68,7 @@ class Login extends React.Component {
     const { message } = this.props;
     event.preventDefault()
     this.props.login(this.state.email.value, this.state.password.value);
+
   }
 }
 
@@ -75,7 +76,9 @@ class Login extends React.Component {
 
 const mapState = () => ({ message: 'Log in' })
 const mapDispatch = (dispatch) => ({
-  login: (email, password) => dispatch(loginUser(email, password))
+  login: (email, password) => {
+    return dispatch(loginUser(email, password))
+  }
 })
 
 export default connect(mapState, mapDispatch)(Login);
